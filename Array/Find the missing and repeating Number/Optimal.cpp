@@ -1,10 +1,10 @@
-// Approach 1
+
 #include <iostream>
 #include <vector>
 #include <bits/stdc++.h>
 
 using namespace std;
-
+// Approach 1
 void missing_duplicate(int *Arr, int Size)
 {
     long double sum = 0;
@@ -33,6 +33,7 @@ void missing_duplicate(int *Arr, int Size)
 
 int main()
 {
+    
     int T_cases;
     cin>>T_cases;
     
@@ -52,6 +53,7 @@ int main()
         
         missing_duplicate(Arr, N);
     }
+     
     return 0;
 }
 

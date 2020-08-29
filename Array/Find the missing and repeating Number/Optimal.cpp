@@ -5,7 +5,7 @@
 
 using namespace std;
 // Approach 1
-void missing_duplicate(int *Arr, int Size)
+/*void missing_duplicate(int *Arr, int Size)
 {
     long double sum = 0;
     long double sum_square = 0;
@@ -30,7 +30,85 @@ void missing_duplicate(int *Arr, int Size)
 
     return ;
 }
-
+*/
+//Approach 2 - using XOR
+void missing_duplicate(int *Arr, int Size)
+{
+    int p = 0;
+    int q = 0;
+    for (int i=0; i<Size; i++)
+    {
+        p = p^Arr[i];
+        q = q^(i+1);
+    }
+    
+    vector<int> Bucket_1;
+    vector<int> Bucket_2;
+    if(p%2==1 || q%2==1)
+    {
+        for (int i=0; i<Size; i++)
+        {
+            if(Arr[i]%2 == 1)
+                Bucket_1.push_back(Arr[i]);
+            else
+                Bucket_2.push_back(Arr[i]);
+        }
+        for (int i=1; i<=Size; i++)
+        {
+            if(i%2 == 1)
+                Bucket_1.push_back(i);
+            if(i%2 == 0)
+                Bucket_2.push_back(i);
+        }
+        int a=0;
+        int b=0;
+        for(int i=0; i<Bucket_1.size(); i++)
+        {
+            a = a^(Bucket_1[i]);
+        }
+        for(int i=0; i<Bucket_2.size(); i++)
+        {
+            b = b^(Bucket_2[i]);
+        }
+        for(int i=0;i<Size;i++)
+        {
+            if(Arr[i] == a)
+            {
+                cout<<a<<" "<<b<<endl;
+                break;
+            }
+            if(Arr[i] == b)
+            {
+                cout<<b<<" "<<a<<endl;
+                break;
+            }
+        }
+        return ;
+    }
+    
+    
+}
+//Approach 3 - modification in array
+/*
+void missing_duplicate(int arr[], int size)
+{
+    int i;
+    cout << " The repeating element is ";
+  
+    for (i = 0; i < size; i++) {
+        if (arr[abs(arr[i]) - 1] > 0)
+            arr[abs(arr[i]) - 1] = -arr[abs(arr[i]) - 1];
+        else
+            cout << abs(arr[i]) << "\n";
+    }
+  
+    cout << "and the missing element is ";
+    for (i = 0; i < size; i++) {
+        if (arr[i] > 0)
+            cout << (i + 1);
+    }
+}
+*/
 int main()
 {
     

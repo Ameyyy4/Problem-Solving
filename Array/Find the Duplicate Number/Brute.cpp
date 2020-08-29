@@ -1,4 +1,4 @@
-// Time Complexity of O(n^2) and space complexity of O(1)
+// Time Complexity of O(nlogn) and space complexity of O(1)
 #include <iostream>
 #include <vector>
 #include <bits/stdc++.h>
@@ -9,11 +9,8 @@ int duplicate(vector<int> & arr)
 {
     for(int i=0;i<arr.size()-1;i++)
     {
-        for (int j=i+1; j<arr.size(); j++)
-        {
-            if(arr[i] == arr[j])
-                return arr[i];
-        }
+        if(arr[i] == arr[i+1])
+            return arr[i];
     }
     return 0;
 }
@@ -32,6 +29,7 @@ int main()
         arr.push_back(temp);
     }
     
+    sort(arr.begin(), arr.end());
     cout<<duplicate(arr);
     return 0;
 }

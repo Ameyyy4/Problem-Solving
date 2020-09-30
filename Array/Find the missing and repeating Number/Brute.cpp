@@ -1,3 +1,5 @@
+// O(nlogn) is the Time Complexity incurred during the sort process
+// Sorted the Array and then found the missing and repeating element
 #include <iostream>
 #include <vector>
 #include <bits/stdc++.h>

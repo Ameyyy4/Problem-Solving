@@ -5,9 +5,11 @@
 
 using namespace std;
 
-void merge(int* Arr_n, int* Arr_m, int n, int m)
+void merge(int Arr_n[], int Arr_m[])
 {
-    int i=0;
+    int n = sizeof(Arr_n)/sizeof(Arr_n[0]);
+    int m = sizeof(Arr_m)/sizeof(Arr_m[0]);
+    
     int j=0;
     vector<int> Arr_combined;
     
@@ -73,7 +75,7 @@ int main()
                 cin>>Arr_m[j-n];
         }
         
-        merge(Arr_n, Arr_m, n, m);
+        merge(Arr_n, Arr_m);
     }
     return 0;
 }

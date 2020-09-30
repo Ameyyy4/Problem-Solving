@@ -1,4 +1,4 @@
-
+// 
 #include <iostream>
 #include <vector>
 #include <bits/stdc++.h>
@@ -42,52 +42,57 @@ void missing_duplicate(int *Arr, int Size)
         q = q^(i+1);
     }
     
+    int num = p^q;
+    
+    num = num & ~(num-1);
+    
     vector<int> Bucket_1;
     vector<int> Bucket_2;
-    if(p%2==1 || q%2==1)
+    
+    for (int i=0; i<Size; i++)
     {
-        for (int i=0; i<Size; i++)
-        {
-            if(Arr[i]%2 == 1)
-                Bucket_1.push_back(Arr[i]);
-            else
-                Bucket_2.push_back(Arr[i]);
-        }
-        for (int i=1; i<=Size; i++)
-        {
-            if(i%2 == 1)
-                Bucket_1.push_back(i);
-            if(i%2 == 0)
-                Bucket_2.push_back(i);
-        }
-        int a=0;
-        int b=0;
-        for(int i=0; i<Bucket_1.size(); i++)
-        {
-            a = a^(Bucket_1[i]);
-        }
-        for(int i=0; i<Bucket_2.size(); i++)
-        {
-            b = b^(Bucket_2[i]);
-        }
-        for(int i=0;i<Size;i++)
-        {
-            if(Arr[i] == a)
-            {
-                cout<<a<<" "<<b<<endl;
-                break;
-            }
-            if(Arr[i] == b)
-            {
-                cout<<b<<" "<<a<<endl;
-                break;
-            }
-        }
-        return ;
+        if(Arr[i] & num)
+            Bucket_1.push_back(Arr[i]);
+        else
+            Bucket_2.push_back(Arr[i]);
     }
     
+    for (int i=1; i<=Size; i++)
+    {
+        if(i & num)
+            Bucket_1.push_back(i);
+        else
+            Bucket_2.push_back(i);
+    }
     
+    int a=0;
+    int b=0;
+    for(int i=0; i<Bucket_1.size(); i++)
+    {
+        a = a^(Bucket_1[i]);
+    }
+    for(int i=0; i<Bucket_2.size(); i++)
+    {
+        b = b^(Bucket_2[i]);
+    }
+    for(int i=0;i<Size;i++)
+    {
+        if(Arr[i] == a)
+        {
+            cout<<a<<" "<<b<<endl;
+            break;
+        }
+        if(Arr[i] == b)
+        {
+            cout<<b<<" "<<a<<endl;
+            break;
+        }
+    }
+    return ;
 }
+    
+    
+
 //Approach 3 - modification in array
 /*
 void missing_duplicate(int arr[], int size)

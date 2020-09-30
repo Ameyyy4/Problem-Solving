@@ -25,30 +25,6 @@ int duplicate(vector<int>& arr)
     }
     return 0;
 }
-
-// Using Unordered Set
-// TC : O(n) and SC : O(n)
-
-class Solution {
-public:
-    int findDuplicate(vector<int>& nums)
-    {
-        unordered_set<int> s;
-    
-        for(int i=0 ;i<nums.size() ;i++)
-        {
-            if(s.find(nums[i])!=s.end())
-            {
-                return nums[i];
-            }
-            s.insert(nums[i]);
-        }
-        
-        return 0;
-    }
-};
-
-
 int main()
 {
     int n;

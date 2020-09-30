@@ -1,32 +1,47 @@
 // Time Complexity of O(n) and space complexity of O(1)
+// 1 pass Algo
+// Dutch National Flag Algorithm
 #include <iostream>
 #include <vector>
 #include <bits/stdc++.h>
 
 using namespace std;
 
-int duplicate(vector<int> & arr)
+void sort(vector<int> & arr, int s, int e)
 {
-    int slow;
-    int fast;
-    slow = fast = arr[0];
+    int low = s;
+    int mid = s;
+    int high = e;
     
-    do
+    while(mid<=high)
     {
-        slow = arr[slow];
-        fast = arr[arr[fast]];
+        if(arr[mid] == 0)
+        {
+            int temp;
+            temp = 0;
+            arr[mid] = arr[low];
+            arr[low] = temp;
+            mid++;
+            low++;
+            continue;
+        }
+        if(arr[mid] == 2)
+        {
+            int temp;
+            temp = 2;
+            arr[mid] = arr[high];
+            arr[high] = temp;
+            high--;
+            continue;
+        }
+        if(arr[mid] == 1)
+        {
+            mid++;
+            continue;
+        }
     }
-    while (slow!=fast);
     
-    fast = arr[0];
-    
-    while (slow!=fast)
-    {
-        slow = arr[slow];
-        fast = arr[fast];
-    }
-    
-    return slow;
+    return;
 }
 
 int main()
@@ -43,6 +58,11 @@ int main()
         arr.push_back(temp);
     }
     
-    cout<<duplicate(arr);
+    sort(arr,0,n-1);
+    
+    for(int i=0;i<n;i++)
+        cout<<arr[i]<<" ";
+    cout<<endl;
     return 0;
+     
 }

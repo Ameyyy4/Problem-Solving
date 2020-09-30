@@ -1,3 +1,5 @@
+// Space Complexity is O(N) and Time Complexity is O(N)
+// Used a second array to store the frequency of the values
 #include <iostream>
 #include <vector>
 #include <bits/stdc++.h>
@@ -9,7 +11,12 @@ void missing_duplicate(int *Arr, int Size)
     int missing;
     int duplicate;
     
-    int space[Size] = {0};
+    int space[Size];
+    
+    for (int i=0; i<Size; i++)
+    {
+        space[i] = 0;
+    }
     
     for (int i=0; i<Size; i++)
     {

@@ -1,37 +1,41 @@
-// Time Complexity of O(n^2) and space complexity of O(1)
-#include <iostream>
-#include <vector>
-#include <bits/stdc++.h>
+// TC : (n*n) and SC : O(1)
+// Erasing an element in vector a worst case complexity of O(N)
 
-using namespace std;
+class Solution {
+public:
 
-int duplicate(vector<int> & arr)
-{
-    for(int i=0;i<arr.size()-1;i++)
+    vector<vector<int>> merge(vector<vector<int>>& intervals)
     {
-        for (int j=i+1; j<arr.size(); j++)
+        sort(intervals.begin(),intervals.end());
+        
+        int s1,e1,s2,e2;
+        int row_index = 0;
+        
+        while(row_index+1<(int)intervals.size())
         {
-            if(arr[i] == arr[j])
-                return arr[i];
+            
+            s1 = intervals[row_index][0];
+            e1 = intervals[row_index][1];
+            s2 = intervals[row_index+1][0];
+            e2 = intervals[row_index+1][1];
+            
+            if(s2<=e1 && s1<=e2)
+            {
+                s1 = s1>s2?s2:s1;
+                e1 = e1>e2?e1:e2;
+                
+                intervals[row_index][0] = s1;
+                intervals[row_index][1] = e1;
+                intervals.erase(intervals.begin()+row_index+1);
+            }
+            else
+            {
+                row_index++;
+            }
+            
         }
+        
+        return intervals;
     }
-    return 0;
-}
+};
 
-int main()
-{
-    int n;
-    cin>>n;
-    
-    vector<int> arr;
-    int temp;
-    
-    for (int i=0; i<n; i++)                // input
-    {
-        cin>>temp;
-        arr.push_back(temp);
-    }
-    
-    cout<<duplicate(arr);
-    return 0;
-}

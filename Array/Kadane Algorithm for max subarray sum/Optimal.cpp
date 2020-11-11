@@ -1,102 +1,53 @@
-// Takes up time complexity of O(n*m) and O(1) space complexity
-#include <iostream>
-#include <vector>
-#include <bits/stdc++.h>
+// Kadane's Algo
+// TC : O(n) SC : O(1)
 
-using namespace std;
-
-void merge(int* Arr_n, int* Arr_m, int n, int m)
-{
-    int gap=0;
-    
-    if((n+m)%2 == 0)
-        gap = (n+m)/2;
-    else
-        gap = (n+m)/2 + 1;
-    
-    while(gap>=1)
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums)
     {
-        int i = 0;
-        int j;
-        j=i+gap;
+        int max = INT_MIN;
         
-        while(j<m+n)
+        // Find the maximum element of the array
+        for(int i=0;i<nums.size();i++)
         {
-            int temp = 0;
-            if(j<n)
-            {
-                if(Arr_n[i]>=Arr_n[j])
-                {
-                    temp = Arr_n[j];
-                    Arr_n[j] = Arr_n[i];
-                    Arr_n[i] = temp;
-                }
-            }
-            else if(j>=n && i<n)
-            {
-                if(Arr_n[i]>=Arr_m[j-n])
-                {
-                    temp = Arr_m[j-n];
-                    Arr_m[j-n] = Arr_n[i];
-                    Arr_n[i] = temp;
-                }
-            }
-            else if(j>=n && i>=n)
-            {
-                if(Arr_m[i-n]>=Arr_m[j-n])
-                {
-                    temp = Arr_m[j-n];
-                    Arr_m[j-n] = Arr_n[i-n];
-                    Arr_n[i-n] = temp;
-                }
-            }
-            i++;
-            j++;
-        }
-        if(gap == 1)
-            break;
-        if(gap%2 == 0)
-            gap = gap/2;
-        else
-            gap = gap/2 + 1;
-    }
-    
-    for (int j=0; j<n+m; j++)
-    {
-        if(j<n)
-            cout<<Arr_n[j]<<" ";
-        else
-            cout<<Arr_m[j-n]<<" ";
-    }
-    cout<<endl;
-    
-    return;
-}
-
-int main()
-{
-    int T_cases;
-    cin>>T_cases;
-    
-    for (int i=0; i<T_cases; i++)
-    {
-        int n,m;
-        cin>>n>>m;
-        
-        int Arr_n[n];
-        int Arr_m[m];
-        
-        for (int j=0; j<n+m; j++)
-        {
-            if(j<n)
-            {
-                cin>>Arr_n[j];
-            }
-            else
-                cin>>Arr_m[j-n];
+            if(max<nums[i])
+                max = nums[i];
         }
         
-        merge(Arr_n, Arr_m, n, m);
+        if(max<=0)
+        {
+            return max;
+        }
+        else
+        {
+            int sum = 0;
+            for(int i=0;i<nums.size();i++)
+            {
+                sum += nums[i];
+                if(sum<0)
+                    sum = 0;
+                if(sum>max)
+                    max = sum;
+            }
+        }
+        
+        return max;
     }
-    return 0;
-}
+};
+// Divide and Conquer
+// TC : O(n) SC : O(1)
+// Not understood this algo
+int maxSubArray(vector<int>& nums) {
+       int ml, mr, sum;
+       return maxSubArray(0,nums.size()-1, ml, mr, sum, nums);
+   }
+   int maxSubArray(int l, int r, int& ml, int& mr, int& sum, vector<int>& nums) {
+       if(l==r) return ml = mr = sum = nums[l];
+       int mid= (l+r)/2, lml, lmr, lsum, rml, rmr, rsum;
+       int ms=maxSubArray(l,mid,lml,lmr,lsum,nums);
+       ms=max(ms,maxSubArray(mid+1,r,rml,rmr,rsum,nums));
+       ml = max(lml, lsum+rml);
+       mr = max(rmr, rsum+lmr);
+       sum = lsum+rsum;
+       return max(ms,lmr+rml);
+   }

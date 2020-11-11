@@ -1,48 +1,42 @@
-// Time Complexity of O(n) and space complexity of O(1)
-#include <iostream>
-#include <vector>
-#include <bits/stdc++.h>
+// TC : O(NLogN) and SC : O(1)
 
-using namespace std;
+class Solution {
+public:
 
-int duplicate(vector<int> & arr)
-{
-    int slow;
-    int fast;
-    slow = fast = arr[0];
-    
-    do
+    vector<vector<int>> merge(vector<vector<int>>& intervals)
     {
-        slow = arr[slow];
-        fast = arr[arr[fast]];
+        vector<vector<int>> merged;
+        
+        if(intervals.size() == 0)
+            return merged;
+     
+        sort(intervals.begin(), intervals.end());
+        
+        int s2,e2;
+        int row_index = 1;
+        
+        vector<int> temp_interval = intervals[0];
+        
+        while(row_index<(int)intervals.size())
+        {
+        
+            s2 = intervals[row_index][0];
+            e2 = intervals[row_index][1];
+            
+            if(s2<=temp_interval[1])
+            {
+                temp_interval[1] = temp_interval[1]>e2?temp_interval[1]:e2;
+                row_index++;
+            }
+            else
+            {
+                merged.push_back(temp_interval);
+                temp_interval = intervals[row_index++];
+            }
+            
+        }
+        
+        merged.push_back(temp_interval);
+        return merged;
     }
-    while (slow!=fast);
-    
-    fast = arr[0];
-    
-    while (slow!=fast)
-    {
-        slow = arr[slow];
-        fast = arr[fast];
-    }
-    
-    return slow;
-}
-
-int main()
-{
-    int n;
-    cin>>n;
-    
-    vector<int> arr;
-    int temp;
-    
-    for (int i=0; i<n; i++)                // input
-    {
-        cin>>temp;
-        arr.push_back(temp);
-    }
-    
-    cout<<duplicate(arr);
-    return 0;
-}
+};

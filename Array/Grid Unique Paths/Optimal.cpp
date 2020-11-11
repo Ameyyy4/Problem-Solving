@@ -34,5 +34,23 @@ public:
     
 };
 
-// COmbination SOln
+// Combination Soln
+// O(m) or O(n) if n is greater or m is greater respectively
+class Solution {
+public:
+    int choose_fun(int n, int r)
+    {
+        if(r == 0)
+            return 1;
+        long long t = (long long)n * choose_fun(n-1,r-1);
+        return t/r;
+    }
+    int uniquePaths(int m, int n)
+    {
+        if(m == 1 || n == 1)
+            return 1;
+        return choose_fun(m+n-2,(m>n?n:m)-1);
+    }
+    
+};
 

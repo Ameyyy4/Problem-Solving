@@ -5,28 +5,22 @@
 
 using namespace std;
 // Approach 1
-/*void missing_duplicate(int *Arr, int Size)
+/*
+void missing_duplicate(long long int *A,long long int len)
 {
-    long double sum = 0;
-    long double sum_square = 0;
     
-    sum = Size*(Size+1)/2;
-    
-    sum_square = Size*(Size+1)*(2*Size + 1)/6;
-    
-    for (int i=0; i<Size; i++)
-    {
-        sum -= Arr[i];
-        sum_square -= Arr[i]*Arr[i];
+    long long int Sum_N = (len * (len+1) ) /2, Sum_NSq = (len * (len +1) *(2*len +1) )/6;
+    long long int missingNumber=0, repeating=0;
+      
+    for(int i=0;i<A.size(); i++){
+       Sum_N -= (long long int)A[i];
+       Sum_NSq -= (long long int)A[i]*(long long int)A[i];
     }
+      
+    missingNumber = (Sum_N + Sum_NSq/Sum_N)/2;
+    repeating= missingNumber - Sum_N;
     
-    long double M = sum_square/sum;
-    long double D = M;
-    M = M + sum;
-    M = M/2;
-    D = D - sum;
-    D = D/2;
-    cout<<D<<" "<<M<<endl;
+    cout<<repeating<<" "<<missingNumber<<endl;
 
     return ;
 }
@@ -122,13 +116,13 @@ int main()
     
     for (int i=0; i<T_cases; i++)
     {
-        int N;
+        long long int N;
         cin>>N;
         
-        int Arr[N];
-        int temp;
+        long long int Arr[N];
+        long long int temp;
         
-        for (int j=0; j<N; j++)
+        for (long long int j=0; j<N; j++)
         {
             cin>>temp;
             Arr[j] = temp;

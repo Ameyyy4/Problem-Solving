@@ -5,80 +5,55 @@
 
 using namespace std;
 
-void merge(int* Arr_n, int* Arr_m, int n, int m)
+void merge(int arr1[], int arr2[], int n, int m)
 {
-    int gap=0;
-    
-    if((n+m)%2 == 0)
-        gap = (n+m)/2;
-    else
-        gap = (n+m)/2 + 1;
-    
+    int gap = ceil((double)(n+m)/2);
+   
     while(gap>=1)
     {
-        int i = 0;
-        int j;
-        j=i+gap;
+        // perform the operation of comparing for each gap and then change the gap value
         
-        while(j<m+n)
+        for(int i1=0,i2=gap;i2<n+m;i1++,i2++)
         {
-            int temp = 0;
-            if(j<n)
+            if(i2<=n-1)
             {
-                if(Arr_n[i]>=Arr_n[j])
+                if(arr1[i1]>arr1[i2])
                 {
-                    temp = Arr_n[j];
-                    Arr_n[j] = Arr_n[i];
-                    Arr_n[i] = temp;
+                    int temp = arr1[i1];
+                    arr1[i1] = arr1[i2];
+                    arr1[i2] = temp;
                 }
+                continue;
             }
-            else if(j>=n && i<n)
+            if(i1<=n-1 && i2>n-1)
             {
-                if(Arr_n[i]>=Arr_m[j-n])
+                if(arr1[i1]>arr2[i2-n])
                 {
-                    temp = Arr_m[j-n];
-                    Arr_m[j-n] = Arr_n[i];
-                    Arr_n[i] = temp;
+                    int temp = arr1[i1];
+                    arr1[i1] = arr2[i2-n];
+                    arr2[i2-n] = temp;
                 }
+                continue;
             }
-            else if(j>=n && i>=n)
+            if(i1>n-1)
             {
-                if(Arr_m[i-n]>=Arr_m[j-n])
+                if(arr2[i1-n]>arr2[i2-n])
                 {
-                    temp = Arr_m[j-n];
-                    Arr_m[j-n] = Arr_n[i-n];
-                    Arr_n[i-n] = temp;
+                    int temp = arr2[i1-n];
+                    arr2[i1-n] = arr2[i2-n];
+                    arr2[i2-n] = temp;
                 }
+                continue;
             }
-            i++;
-            j++;
         }
-        for (int j=0; j<n+m; j++)
-        {
-            if(j<n)
-                cout<<Arr_n[j]<<" ";
-            else
-                cout<<Arr_m[j-n]<<" ";
-        }
-        cout<<endl;
+        
         if(gap == 1)
-            break;
-        if(gap%2 == 0)
-            gap = gap/2;
+            gap = 0;
         else
-            gap = gap/2 + 1;
+            gap = ceil((double)gap/2);
     }
     
-    for (int j=0; j<n+m; j++)
-    {
-        if(j<n)
-            cout<<Arr_n[j]<<" ";
-        else
-            cout<<Arr_m[j-n]<<" ";
-    }
-    cout<<endl;
-    
-    return;
+    return ;
 }
 
 int main()

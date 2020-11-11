@@ -1,31 +1,75 @@
-// Time Complexity of O(nlogn) and space complexity of O(1)
+// Time Complexity of O(nlogn) and space complexity of O(n)
 class Solution {
 public:
-    int majorityElement(vector<int>& nums)
+    vector<int> majorityElement(vector<int>& nums)
     {
-        int n = nums.size();
-        
-        if(n==1)
-            return nums[0];
-        
+        int n = (int)nums.size();
+        vector<int> majority;
+    
+        if(n == 0)
+            return nums;
+    
         sort(nums.begin(),nums.end());
         
-        int freq = 1;
-        for(int i=1; i<n; i++)
+        int index1, index2;
+        index1 = 0;
+        index2 = 1;
+        int count = 1;
+        
+        while(index2 != n)
         {
-            if(nums[i] == nums[i-1])
+            if(nums[index1] == nums[index2])
             {
-                freq++;
-                if(freq > n/2)
-                    return nums[i];
+                count++;
+                index2++;
             }
             else
-                freq = 1;
+            {
+                if(count>n/3)
+                    majority.push_back(nums[index1]);
+                index1 = index2;
+                index2++;
+                count = 1;
+            }
         }
+        if(count > n/3)
+            majority.push_back(nums[n-1]);
         
-        return 0;
+        return majority;
     }
+    
 };
-
-// More Solns( Randomization, Hash Table, Divide and Conquer) at
-// https://leetcode.com/problems/majority-element/discuss/51612/C%2B%2B-6-Solutions
+// O(n) TC and O(n) SC
+class Solution {
+public:
+    vector<int> majorityElement(vector<int>& nums)
+    {
+        vector<int> majority;
+        int n = (int) nums.size();
+        if(n == 1)
+            return nums;
+        int index = 0;
+        unordered_map<int,int> m;
+        while(index!=n)
+        {
+            m[nums[index]]++;
+            if(m[nums[index]] > n/3)
+            {
+                if(majority.empty())
+                    majority.push_back(nums[index]);
+                else
+                {
+                    if(majority[0] != nums[index])
+                    {
+                        majority.push_back(nums[index]);
+                        return majority;
+                    }
+                }
+            }
+            index++;
+        }
+        return majority;
+        
+    }
+    
+};

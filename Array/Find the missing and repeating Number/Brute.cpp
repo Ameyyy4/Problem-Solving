@@ -1,11 +1,59 @@
-// O(nlogn) is the Time Complexity incurred during the sort process
-// Sorted the Array and then found the missing and repeating element
+// TC : O(n*n) Approach
+// SC : O(1) Approach
 #include <iostream>
 #include <vector>
 #include <bits/stdc++.h>
 
 using namespace std;
 
+int *findTwoElement(int *arr, int n)
+    {
+        // code here
+        int a[] = {0,0};
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                if(arr[i] == arr[j])
+                {
+                    a[0] = arr[i];
+                    break;
+                }
+            }
+            if(a[0] != 0)
+                break;
+        }
+        
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(i == arr[j])
+                {
+                    break;
+                }
+                else
+                {
+                    if(j == n-1)
+                    {
+                        a[1] = i;
+                        break;
+                    }
+                }
+            }
+            if(a[1] != 0)
+                break;
+        }
+        
+        return a;
+    }
+};
+
+// O(nlogn) is the Time Complexity incurred during the sort process
+// Sorted the Array and then found the missing and repeating element
+
+/*
 void missing_duplicate(int *Arr, int Size)
 {
     int missing;
@@ -53,7 +101,7 @@ void missing_duplicate(int *Arr, int Size)
     
     cout<<duplicate<<" "<<missing<<endl;
 }
-
+*/
 int main()
 {
     int T_cases;
@@ -69,12 +117,14 @@ int main()
         
         for (int j=0; j<N; j++)
         {
-            cin>>temp;
-            Arr[j] = temp;
+            cin>>Arr[i];
         }
         
-        sort(Arr ,Arr + N);
-        missing_duplicate(Arr, N);
+        //sort(Arr ,Arr + N);
+        auto p = findTwoElement(Arr, N);
+        
+        cout<<p[0]<<" "<<p[1]<<endl;
     }
     return 0;
 }
+

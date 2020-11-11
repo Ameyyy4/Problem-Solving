@@ -36,6 +36,32 @@ double myPow(double x, int n)
     }
     return x;
 }
+
+class Solution {
+public:
+    double myPow(double x, int n)
+    {
+        if(n == 0)
+            return 1;
+        double output = x;
+        long long m = (long long)abs(n);
+        
+        while(true)
+        {
+            if(m%2 == 1)
+                output *= myPow(output,m-1);
+            else
+                output = myPow(output*output, m/2);
+            if(n>0)
+                return output;
+            else
+                return 1/output;
+        }
+        return 1;
+    }
+    
+};
+
 // bit operations
 double myPow(double x, int n) {
     if(n==0) return 1;

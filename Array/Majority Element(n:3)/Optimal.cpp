@@ -8,51 +8,65 @@ class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums)
     {
-        int n = nums.size();
-        vector<int> p;
-        int num1 = -1;
-        int num2 = -1;
-        int c1 = 0;
-        int c2 = 0;
+        vector<int> majority;
+        int nums1 = -1;
+        int nums2 = -2;
+        int count1 = 0;
+        int count2 = 0;
+        int n = (int) nums.size();
+        if(n == 1)
+            return nums;
+        int index = 0;
         
-        for(int i=0;i<n;i++)
+        while(index != n)
         {
-            if(nums[i] == num1)
-                c1++;
-            else if(nums[i] == num2)
-                c2++;
-            else if(c1 == 0)
+            if(nums1 == nums[index])
             {
-                num1 = nums[i];
-                c1 = 1;
+                count1++;
+                index++;
             }
-            else if(c2 == 0)
+            else if(nums2 == nums[index])
             {
-                num2 = nums[i];
-                c2 = 1;
+                count2++;
+                index++;
+            }
+            else if(count1 == 0)
+            {
+                nums1 = nums[index];
+                index++;
+                count1++;
+            }
+            else if(count2 == 0)
+            {
+                nums2 = nums[index];
+                index++;
+                count2++;
             }
             else
             {
-                c1--;
-                c2--;
+                count1--;
+                count2--;
+                index++;
             }
         }
-        c1 = 0;
-        c2 = 0;
-        
-        
+        count1 = 0;
+        count2 = 0;
         for(int i=0;i<n;i++)
         {
-            if(nums[i] == num1)
-                c1++;
-            else if(nums[i] == num2)
-                c2++;
+            if(nums1 == nums[i])
+                count1++;
         }
+        for(int i=0;i<n;i++)
+        {
+            if(nums2 == nums[i])
+                count2++;
+        }
+        if(count1>n/3)
+            majority.push_back(nums1);
+        if(count2>n/3)
+            majority.push_back(nums2);
+        return majority;
         
-        if(c1>(n/3))
-            p.push_back(num1);
-        if(c2>(n/3))
-            p.push_back(num2);
-        return p;
     }
+    
 };

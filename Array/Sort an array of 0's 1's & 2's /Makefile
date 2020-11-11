@@ -1,2 +1,2 @@
 Make:
-	g++ Optimal.cpp -o start
+	g++ Brute.cpp -o start

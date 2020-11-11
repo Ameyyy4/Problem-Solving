@@ -1,10 +1,96 @@
-// Time Complexity of O(nlogn) and space complexity of O(n)
-// merge sort algorithm
+// Time Complexity of O(n*n) and space complexity of O(1)
 #include <iostream>
 #include <vector>
 #include <bits/stdc++.h>
 
 using namespace std;
+
+void print_Sorted(vector<int> &a, int n)
+{
+    int indicator = 0;
+    int curr_loc = n-1;
+    
+    for(int z = 0;z<n;z++)
+    {
+        if(a[z] != 0)
+        {
+            for(int i=z+1;i<n;i++)
+            {
+                if(a[i] == 0)
+                {
+                    a[i] = a[z];
+                    a[z] = 0;
+                    break;
+                }
+                else
+                {
+                    if(i == n-1)
+                        indicator = 1;
+                }
+            }
+        }
+        if(indicator == 1)
+        {
+            curr_loc = z;
+            break;
+        }
+    }
+
+    for(int z = curr_loc;z<n;z++)
+    {
+        if(a[z] != 1)
+        {
+            for(int i=z+1;i<n;i++)
+            {
+                if(a[i] == 1)
+                {
+                    a[i] = a[z];
+                    a[z] = 1;
+                    break;
+                }
+                else
+                {
+                    if(i == n-1)
+                        indicator = 2;
+                }
+            }
+        }
+        if(indicator == 2)
+            break;
+    }
+    
+    for(int i = 0; i<n ; i++)
+        cout<<a[i]<<" ";
+        
+    return ;
+    
+}
+
+int main() {
+    //code
+    int t;
+    int n;
+    int temp;
+    cin>>t;
+    for(int i=0;i<t;i++)
+    {
+        cin>>n;
+        vector<int> p;
+        for(int j = 0;j<n;j++)
+        {
+            cin>>temp;
+            p.push_back(temp);
+        }
+        
+        print_Sorted(p,n);
+        cout<<endl;
+    }
+    return 0;
+}
+
+// Time Complexity of O(nlogn) and space complexity of O(n)
+// merge sort algorithm
+
 void merge(vector<int> & arr, int s, int m, int e)
 {
     int arr1[m-s];
@@ -88,5 +174,7 @@ int main()
         cout<<arr[i]<<" ";
     cout<<endl;
     return 0;
-     
+    
 }
+
+

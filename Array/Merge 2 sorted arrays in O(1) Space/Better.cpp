@@ -17,19 +17,7 @@ void merge(int* Arr_n, int* Arr_m, int n, int m)
             temp_1 = Arr_n[i];
             Arr_n[i] = Arr_m[0];
             Arr_m[0] = temp_1;
-            
-            for(int z=1; z<m ;z++)
-            {
-                temp_1 = Arr_m[z-1];
-                if(Arr_m[z-1]>Arr_m[z])
-                {
-                    temp_1 = Arr_m[z];
-                    Arr_m[z] = Arr_m[z-1];
-                    Arr_m[z-1] = temp_1;
-                }
-                else
-                    break;
-            }
+            sort(a)
         }
         
         i++;
